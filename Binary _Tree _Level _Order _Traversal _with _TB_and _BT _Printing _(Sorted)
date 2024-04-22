@@ -1,0 +1,36 @@
+class Node:
+    def __init__(self,d):
+        self.lc=None
+        self.rc=None
+        self.d=d
+        self.hd=0
+def level_order(root,order='TB'):
+    if not root:
+        return {}
+    res={}
+    q=[(root,0)]
+    while q:
+        node,level=q.pop(0)
+        if level not in res:
+            res[level]=[]
+        res[level].append(node.d)
+        if node.lc:
+            q.append((node.lc,level+1))
+        if node.rc:
+            q.append((node.rc,level+1))
+    print("level order traversal")
+    if(order=='TB'):
+        for row in res:
+            print(res[row],end="\n")
+    elif(order=='BT'):
+        for row in sorted(res):
+            print(res[row],end="\n")    
+#driver code
+root=Node("A")
+root.lc=Node("B")
+root.rc=Node("C")
+root.lc.lc=Node("D")
+root.lc.rc=Node("E")
+root.rc.lc=Node("F")
+root.rc.rc=Node("G")
+level_order(root,'BT')
